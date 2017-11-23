@@ -3,9 +3,12 @@ debugger; // eslint-disable-line no-debugger
 import load from '../src/main.js';
 import assert from 'assert';
 
+let value;
 let map = (opts) => opts;
-let layers = (opts, mymap) => { mymap.ten = 10; };
+let layers = (opts, mymap) => { value = mymap.boo; };
 let deps = { layers: ['map'] };
+
+global.document = { querySelector: () => [{}] };
 
 describe('module', function () {
   it('loads modules', function (done) {
@@ -14,7 +17,7 @@ describe('module', function () {
     };
 
     load([config], { map, layers }, deps)
-      .then(() => assert.equal(10, config.map.ten))
+      .then(() => assert.equal(config.map.boo, value))
       .then(done, done);
   });
 
@@ -35,7 +38,7 @@ describe('module', function () {
     };
 
     load(config, { map, layers }, deps)
-      .then(() => assert.equal(10, config.map.ten))
+      .then(() => assert.equal(config.map.boo, value))
       .then(done, done);
   });
 
