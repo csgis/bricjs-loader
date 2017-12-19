@@ -26,7 +26,7 @@ function process(context) {
   // Load modules and resolve them
   enabledModules.forEach(name => {
     let callback = modules[name];
-    let opts = context[name];
+    let opts = context[name] || {};
     let deps = dependencies[name] || [];
 
     let modulePromises = deps
