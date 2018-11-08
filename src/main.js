@@ -35,7 +35,7 @@ function process(context) {
 
     Promise.all(modulePromises).then(values => {
       let qualifiedName = config instanceof Array ? `${config.indexOf(context)}:${name}` : name;
-      let parent = document.querySelector(`[${COMPONENT_ATTRIBUTE}=${qualifiedName}`);
+      let parent = document.querySelector(`[${COMPONENT_ATTRIBUTE}=${qualifiedName}]`);
       values.unshift(parent ? Object.assign({ parent }, opts) : opts);
       resolves[name](callback.apply(null, values));
     });
